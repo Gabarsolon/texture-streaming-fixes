@@ -1,14 +1,15 @@
-# Remedy texture fix
+# Texture streaming fixes
 
-ReShade add-ons that stop textures in Remedy's Northlight games from going blurry a few minutes into play on 6–8 GB graphics cards, with ray tracing or path tracing left on. They change nothing on disk.
+Fixes for textures that go blurry on graphics cards with little VRAM: ReShade add-ons for Remedy's Northlight games (Control, Control Resonant, Alan Wake 2) and a REFramework script for Onimusha: Way of the Sword, listed below. They change nothing on disk. The Remedy add-ons stop textures from going blurry a few minutes into play on 6–8 GB graphics cards, with ray tracing or path tracing left on.
 
 | Game | Add-on | Download | Played on |
 |---|---|---|---|
-| Control Resonant | `CRStreamingFix.addon64` | [v1.4.0](https://github.com/Gabarsolon/remedy-texture-fix/releases/tag/v1.4.0) | game 0.564.208.5 and 0.563.737.9, see [Tested with](#tested-with) |
-| Alan Wake 2 | `AW2StreamingFix.addon64` | [v1.1.1](https://github.com/Gabarsolon/remedy-texture-fix/releases/tag/aw2-v1.1.1) | game 0.559.302.8; newer build checked offline and confirmed working by a user, see [Alan Wake 2](#alan-wake-2) |
-| Control | `ControlStreamingFix.addon64` | [v1.0.0](https://github.com/Gabarsolon/remedy-texture-fix/releases/tag/control-v1.0.0) | game 0.0.518.2177 in DX12, see [Control](#control) |
+| Control Resonant | `CRStreamingFix.addon64` | [v1.4.0](https://github.com/Gabarsolon/texture-streaming-fixes/releases/tag/v1.4.0) | game 0.564.208.5 and 0.563.737.9, see [Tested with](#tested-with) |
+| Alan Wake 2 | `AW2StreamingFix.addon64` | [v1.1.1](https://github.com/Gabarsolon/texture-streaming-fixes/releases/tag/aw2-v1.1.1) | game 0.559.302.8; newer build checked offline and confirmed working by a user, see [Alan Wake 2](#alan-wake-2) |
+| Control | `ControlStreamingFix.addon64` | [v1.0.0](https://github.com/Gabarsolon/texture-streaming-fixes/releases/tag/control-v1.0.0) | game 0.0.518.2177 in DX12, see [Control](#control) |
+| Onimusha: Way of the Sword | [`onimusha_texture_fix.lua`](onimusha/) (REFramework script) | pre-release, see [onimusha/](onimusha/README.md) | one 8 GB card; not tried on a 4 to 6 GB card |
 
-All three are built from one source. Control Resonant and Alan Wake 2 work the same way. Control has an older streamer, and its own section. The rest of this page describes the Control Resonant add-on. For Alan Wake 2, read `AW2StreamingFix` for `CRStreamingFix` and `AlanWake2.exe` for `CONTROLResonant.exe`.
+The three Remedy add-ons are built from one source. Control Resonant and Alan Wake 2 work the same way. Control has an older streamer, and its own section. The rest of this page describes the Control Resonant add-on. For Alan Wake 2, read `AW2StreamingFix` for `CRStreamingFix` and `AlanWake2.exe` for `CONTROLResonant.exe`.
 
 ## The problem
 
@@ -157,9 +158,9 @@ On game 0.564 use v1.1.1 or later. Older versions still apply the fix there, but
 
 Alan Wake 2 runs the same texture streamer with the same numbers: a 100 MiB floor, ceilings of 1664 MiB, 3 GiB and 4 GiB from Texture Resolution, and the same fit-to-pool controller. `AW2StreamingFix.addon64` is this add-on built for `AlanWake2.exe`. Install and settings are as above, with `AW2StreamingFix` in the file names: put `AW2StreamingFix.addon64` next to `AlanWake2.exe`.
 
-For game **0.564.904.9**, use [**AW2StreamingFix v1.1.1**](https://github.com/Gabarsolon/remedy-texture-fix/releases/tag/aw2-v1.1.1) or later. The newer game's controller has a different instruction layout; v1.1.1 recognizes both layouts and still requires exactly one match before changing anything. Neither add-on uses a game-version whitelist: a later game build can work without an add-on update while its code still matches.
+For game **0.564.904.9**, use [**AW2StreamingFix v1.1.1**](https://github.com/Gabarsolon/texture-streaming-fixes/releases/tag/aw2-v1.1.1) or later. The newer game's controller has a different instruction layout; v1.1.1 recognizes both layouts and still requires exactly one match before changing anything. Neither add-on uses a game-version whitelist: a later game build can work without an add-on update while its code still matches.
 
-Game 0.564.904.9 was checked offline from `AlanWake2.exe` alone: no game launch or data files are needed. The add-on finds fit-to-pool at `exe+0x21D7070`, the heap pointer at `exe+0x3B6F2E0`, the manager pointer at `exe+0x38A6F20`, and the pool-use and VRAM-left stats fields. `build.bat test "path\to\AlanWake2.exe"` checks these against the addresses and offsets found in disassembly. The offline lifecycle test also checks applying the settings with the new layout, and rejecting ambiguous signatures or an unexpected controller body. [The reporter in issue #1 confirmed v1.1.1 is working](https://github.com/Gabarsolon/remedy-texture-fix/issues/1#issuecomment-6401075632) and said they would continue testing during gameplay. The author has not tested gameplay on this newer build.
+Game 0.564.904.9 was checked offline from `AlanWake2.exe` alone: no game launch or data files are needed. The add-on finds fit-to-pool at `exe+0x21D7070`, the heap pointer at `exe+0x3B6F2E0`, the manager pointer at `exe+0x38A6F20`, and the pool-use and VRAM-left stats fields. `build.bat test "path\to\AlanWake2.exe"` checks these against the addresses and offsets found in disassembly. The offline lifecycle test also checks applying the settings with the new layout, and rejecting ambiguous signatures or an unexpected controller body. [The reporter in issue #1 confirmed v1.1.1 is working](https://github.com/Gabarsolon/texture-streaming-fixes/issues/1#issuecomment-6401075632) and said they would continue testing during gameplay. The author has not tested gameplay on this newer build.
 
 The Alan Wake 2 release also includes the on/off key, graphics-card memory presets and experimental automatic pool described above. When updating, replace the add-on and keep `AW2StreamingFix.ini` to retain your settings.
 
