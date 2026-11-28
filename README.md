@@ -7,7 +7,7 @@ Fixes for textures that go blurry on graphics cards with little VRAM: ReShade ad
 | Control Resonant | `CRStreamingFix.addon64` | [v1.4.0](https://github.com/Gabarsolon/texture-streaming-fixes/releases/tag/v1.4.0) | game 0.564.208.5 and 0.563.737.9, see [Tested with](#tested-with) |
 | Alan Wake 2 | `AW2StreamingFix.addon64` | [v1.1.1](https://github.com/Gabarsolon/texture-streaming-fixes/releases/tag/aw2-v1.1.1) | game 0.559.302.8; newer build checked offline and confirmed working by a user, see [Alan Wake 2](#alan-wake-2) |
 | Control | `ControlStreamingFix.addon64` | [v1.0.0](https://github.com/Gabarsolon/texture-streaming-fixes/releases/tag/control-v1.0.0) | game 0.0.518.2177 in DX12, see [Control](#control) |
-| Onimusha: Way of the Sword | [`onimusha_texture_fix.lua`](onimusha/) (REFramework script) | pre-release, see [onimusha/](onimusha/README.md) | one 8 GB card; not tried on a 4 to 6 GB card |
+| Onimusha: Way of the Sword | [`onimusha_texture_fix.lua`](onimusha/) (REFramework script) | pre-release, see [onimusha/](onimusha/README.md) | 8 GB card made to report 4 GB; not tried on a real 4 GB card |
 
 The three Remedy add-ons are built from one source. Control Resonant and Alan Wake 2 work the same way. Control has an older streamer, and its own section. The rest of this page describes the Control Resonant add-on. For Alan Wake 2, read `AW2StreamingFix` for `CRStreamingFix` and `AlanWake2.exe` for `CONTROLResonant.exe`.
 
